@@ -1,6 +1,8 @@
 ScrManager:
     WelcomeScreen
     MainMenu
+    Menu_Stats
+    Menu_Chars
 
 
 <WelcomeScreen>:
@@ -31,8 +33,9 @@ ScrManager:
             Image:
                 id: splash_image
                 source: "images/button/main_menu_hd.png"
-                center_x: self.parent.center_x
-                center_y: self.parent.center_y
+                size: (self.parent.width*0.8, self.parent.height*0.8)
+                center_x: self.width and self.parent.center_x
+                center_y: self.height and self.parent.center_y
                      
 <MainMenu>:
     name: "mainmenu"
@@ -58,24 +61,47 @@ ScrManager:
 
         MenuButton:
             id: menu_button
-            text: "Button1"
+            text: ""
             on_press: root.menu_animate(self)
+            on_release: 
+                root.on_release_animation()
+                app.root.current = "menu_stats"
+                root.manager.transition.direction = "down"
             Label:
                 id: menu_label
-                text: "About me"
+                text: "Game Stats"
                 font_size: 10
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y - self.parent.center_y*0.11
+            Image:
+                id: menu_image
+                source: "images/icons/genshin.png"
+                size: (self.parent.width*0.5, self.parent.height*0.5)
+                center_x: self.width and self.parent.center_x
+                center_y: self.height and self.parent.center_y
+
+
+                
+
         MenuButton:
             id: menu_button
-            text: "Button2"
+            text: ""
             on_press: root.menu_animate(self)
+            on_release: 
+                app.root.current = "menu_chars"
+                root.manager.transition.direction = "down"
             Label:
                 id: menu_label
-                text: "About me"
+                text: "Characters"
                 font_size: 10
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y - self.parent.center_y*0.11
+            Image:
+                id: menu_image
+                source: "images/icons/paimon.png"
+                size: (self.parent.width*0.5, self.parent.height*0.5)
+                center_x: self.width and self.parent.center_x
+                center_y: self.height and self.parent.center_y
         MenuButton:
             id: menu_button
             text: "Button3"
@@ -132,7 +158,7 @@ ScrManager:
         pos_hint: {"center_x": 0.5, "center_y": 1-0.6}
 
         NavButton:
-            text: "<<"
+            text: ""
             size_hint: (0.04, 0.1)
             pos_hint: {"center_x": 0.5, "center_y": 0.5-0.4}
             font_name: "fonts/Heebo-Light.ttf"
@@ -149,9 +175,38 @@ ScrManager:
             Image:
                 id: back_image
                 source: "images/button/back_hd.png"
-                center_x: self.parent.center_x
-                center_y: self.parent.center_y
+                size: (self.parent.width*0.7, self.parent.height*0.7)
+                center_x: self.width and self.parent.center_x
+                center_y: self.height and self.parent.center_y
                 
+
+<Menu_Stats>:
+    name: "menu_stats"
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "Stats should appear here."
+
+        Button:
+            text: "Go back"
+            on_release: 
+                app.root.current = "mainmenu"
+                root.manager.transition.direction = "up"
+
+<Menu_Chars>:
+    name: "menu_chars"
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "Chars should appear here."
+
+        Button:
+            text: "Go back"
+            on_release: 
+                app.root.current = "mainmenu"
+                root.manager.transition.direction = "up"
+
+
 
 <TestLabel@Label>:
     font_size: 18

@@ -29,6 +29,14 @@ class MainMenu(Screen):
         menu_anim += Animation(background_color = (248/255,159/255,91/255,0), duration = 0.5)
         menu_anim.start(widget)
 
+
+class Menu_Stats(Screen):
+    pass
+
+
+class Menu_Chars(Screen):
+    pass
+
 class ScrManager(ScreenManager):
     pass
 

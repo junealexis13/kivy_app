@@ -7,7 +7,10 @@ gs.set_cookie(ltuid=69270783, ltoken="RFTYzxIugEIsan7EUeCguSSHld8cdvI4XPacp81i")
 
 uid = 811219969
 
-data = gs.get_user_stats(uid)['characters']
-print(data)
+data = gs.get_user_stats(uid)
+notes = gs.get_notes(uid)
+
+print(notes)
+# print(data)
 # for x in data:
 #     print(x['name'], x['level'])
