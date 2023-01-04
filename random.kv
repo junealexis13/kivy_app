@@ -1,0 +1,192 @@
+ScrManager:
+    WelcomeScreen
+    MainMenu
+
+
+<WelcomeScreen>:
+    name: "splashscreen"
+    BoxLayout:
+        orientation: "vertical"
+        size: root.width, root.height
+        padding: root.width*0.05,root.height*0.1
+        
+        Image:
+            source: "images/logo/logo.png"
+            size_hint: (1,1)
+            pos_hint: {"center_x": 0.5}
+
+        NavButton:
+            text: ""
+            size_hint: (0.7, 0.1)
+            pos_hint: {"center_x": 0.5}
+            font_size: 10
+            font_color: (0,0,0,0)
+            on_press:
+                root.on_press_animation()
+            on_release: 
+                root.on_release_animation()
+                app.root.current = "mainmenu"
+                root.manager.transition.direction = "left"
+
+            Image:
+                id: splash_image
+                source: "images/button/main_menu_hd.png"
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                     
+<MainMenu>:
+    name: "mainmenu"
+    GridLayout:
+        cols: 2
+        rows: 1
+        size_hint: (1,0.06)
+        pos_hint: {"center_x": 0.5, "center_y": 1-(0.06/2)}
+
+        TestLabel:
+            text: "Main Menu"
+            size_hint: (0.8,0.8)
+
+    GridLayout:
+        cols: 2
+        rows: 4
+
+        size_hint: (1-0.15,1-0.2)
+        pos_hint: {"center_x": 0.5, "center_y": (1+(0.075))/2}
+
+        spacing: 25
+        padding: 35
+
+        MenuButton:
+            id: menu_button
+            text: "Button1"
+            on_press: root.menu_animate(self)
+            Label:
+                id: menu_label
+                text: "About me"
+                font_size: 10
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y - self.parent.center_y*0.11
+        MenuButton:
+            id: menu_button
+            text: "Button2"
+            on_press: root.menu_animate(self)
+            Label:
+                id: menu_label
+                text: "About me"
+                font_size: 10
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y - self.parent.center_y*0.11
+        MenuButton:
+            id: menu_button
+            text: "Button3"
+            on_press: root.menu_animate(self)
+            Label:
+                id: menu_label
+                text: "About me"
+                font_size: 10
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y - self.parent.center_y*0.14
+        MenuButton:
+            id: menu_button
+            text: "Button4"
+            on_press: root.menu_animate(self)
+            Label:
+                id: menu_label
+                text: "About me"
+                font_size: 10
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y - self.parent.center_y*0.14
+        MenuButton:
+            id: menu_button
+            text: "Button5"
+            on_press: root.menu_animate(self)
+            Label:
+                id: menu_label
+                text: "About me"
+                font_size: 10
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y - self.parent.center_y*0.20
+        MenuButton:
+            id: menu_button
+            text: "Button6"
+            on_press: root.menu_animate(self)
+            Label:
+                id: menu_label
+                text: "About me"
+                font_size: 10
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y - self.parent.center_y*0.20
+        MenuButton:
+            id: menu_button
+            text: "Button7"
+            on_press: root.menu_animate(self)
+            Label:
+                id: menu_label
+                text: "About me"
+                font_size: 10
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y - self.parent.center_y*0.34
+
+    BoxLayout:
+        size_hint: (1-0.25,1-0.2)
+        pos_hint: {"center_x": 0.5, "center_y": 1-0.6}
+
+        NavButton:
+            text: "<<"
+            size_hint: (0.04, 0.1)
+            pos_hint: {"center_x": 0.5, "center_y": 0.5-0.4}
+            font_name: "fonts/Heebo-Light.ttf"
+            font_size: 18
+            color: 1,1,1,1
+
+            on_press:
+                root.on_press_animation()
+            on_release: 
+                root.on_release_animation()
+                app.root.current = "splashscreen"
+                root.manager.transition.direction = "right"
+
+            Image:
+                id: back_image
+                source: "images/button/back_hd.png"
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                
+
+<TestLabel@Label>:
+    font_size: 18
+    font_name: "fonts/Heebo-Extrabold.ttf"
+    canvas.before:
+        Color:
+            rgba: (183/225, 45/225, 247/225,0.4)
+        Rectangle: 
+            pos: self.pos
+            size: self.size
+
+
+<MenuButton@Button>:
+    font_size: 16
+    font_name: "fonts/Heebo-Regular.ttf"
+    background_color: 0, 0, 0, 0
+    background_normal: ""
+    canvas.before:
+        Color:
+            rgba: (229/255, 63/255, 113/255, 1)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [24]
+
+
+<NavButton@Button>:
+    font_name: "fonts/Heebo-Regular.ttf"
+    background_color: 0, 0, 0, 0
+    background_normal: ""
+    canvas.before:
+        Color:
+            rgba: (229/255, 63/255, 113/255, 0)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [18]
+                
