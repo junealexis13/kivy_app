@@ -3,7 +3,8 @@ ScrManager:
     MainMenu
     Menu_Stats
     Menu_Chars
-
+    Menu_Resources
+    Menu_Userprofile
 
 <WelcomeScreen>:
     name: "splashscreen"
@@ -65,11 +66,11 @@ ScrManager:
             on_press: root.menu_animate(self)
             on_release: 
                 root.on_release_animation()
-                app.root.current = "menu_stats"
+                app.root.current = "menu_resources"
                 root.manager.transition.direction = "down"
             Label:
                 id: menu_label
-                text: "Game Stats"
+                text: "Game Resources"
                 font_size: 10
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y - self.parent.center_y*0.11
@@ -82,7 +83,6 @@ ScrManager:
 
 
                 
-
         MenuButton:
             id: menu_button
             text: ""
@@ -102,26 +102,48 @@ ScrManager:
                 size: (self.parent.width*0.5, self.parent.height*0.5)
                 center_x: self.width and self.parent.center_x
                 center_y: self.height and self.parent.center_y
+
+
         MenuButton:
             id: menu_button
-            text: "Button3"
+            text: ""
             on_press: root.menu_animate(self)
+            on_release: 
+                app.root.current = "menu_stats"
+                root.manager.transition.direction = "down"
             Label:
                 id: menu_label
-                text: "About me"
+                text: "Game Stats"
                 font_size: 10
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y - self.parent.center_y*0.14
+            Image:
+                id: menu_image
+                source: "images/icons/list.png"
+                size: (self.parent.width*0.45, self.parent.height*0.45)
+                center_x: self.width and self.parent.center_x
+                center_y: self.height and self.parent.center_y
+
+
         MenuButton:
             id: menu_button
-            text: "Button4"
+            text: ""
             on_press: root.menu_animate(self)
+            on_release: 
+                app.root.current = "menu_userprofile"
+                root.manager.transition.direction = "down"
             Label:
                 id: menu_label
-                text: "About me"
+                text: "User Profile"
                 font_size: 10
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y - self.parent.center_y*0.14
+            Image:
+                id: menu_image
+                source: "images/icons/profile.png"
+                size: (self.parent.width*0.50, self.parent.height*0.50)
+                center_x: self.width and self.parent.center_x
+                center_y: self.height and self.parent.center_y
         MenuButton:
             id: menu_button
             text: "Button5"
@@ -206,7 +228,41 @@ ScrManager:
                 app.root.current = "mainmenu"
                 root.manager.transition.direction = "up"
 
+<Menu_Resources>:
+    name: "menu_resources"
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "Resources should appear here."
 
+        Button:
+            text: "Go back"
+            on_release: 
+                app.root.current = "mainmenu"
+                root.manager.transition.direction = "up"
+
+<Menu_Userprofile>:
+    name: "menu_userprofile"
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: f'id = {root.uid}'
+        Label:
+            text: f'ign = {root.acct_id}'
+        Label:
+            text: f'hoyolab_id = {root.ltuid}'
+        Label:
+            text: f'hoyotoken_access = {root.ltoken}'
+
+        Button:
+            text: "Go back"
+            on_release: 
+                app.root.current = "mainmenu"
+                root.manager.transition.direction = "up"
+            center_y: self.height and self.parent.y*0.1
+            center_x: self.width and self.parent.x*0.5
+            width: self.parent.width*0.5
+            height: self.parent.height*0.5
 
 <TestLabel@Label>:
     font_size: 18

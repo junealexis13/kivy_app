@@ -1,3 +1,2 @@
-range(0,5)
-for x in range(1,4):
-    print(x)
+if __name__ == "__main__":
+    pass

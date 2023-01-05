@@ -4,6 +4,6 @@
                 ltoken: iIaZf8sNY5cIjNaSaLFbNjCdxikE6AZFVwADFVaw
                 uid: 841830081
 	> Cheonsa
-                ltuid: 
-                ltoken:
-                uid:
+                ltuid: 69270783
+                ltoken: RFTYzxIugEIsan7EUeCguSSHld8cdvI4XPacp81i
+                uid: 811219969

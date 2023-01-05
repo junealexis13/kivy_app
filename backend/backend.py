@@ -7,8 +7,8 @@ import pandas as pd
 
 class PlayerUser:
     def __init__(self):
-        # looking for profile.txt
-        self.profile = os.path.join(".","backend","profile.txt")
+        # looking for user_profiles.txt
+        self.profile = os.path.join(".","backend","user_profiles.txt")
         file = glob.glob(os.path.join(".","backend","*"))
         if self.profile not in file:
             new_profile = open(self.profile, 'w')
@@ -17,11 +17,13 @@ class PlayerUser:
         
     def show_users(self):
         self.profile_list = open(self.profile, 'r')
+        users = []
         for line in self.profile_list:
             find_user = line.split("\t>")
             if len(find_user) == 2:
-                print(find_user[1].strip())
+                users.append(find_user[1].strip())
         self.profile_list.close()
+        return users
 
     def add_user(self, username: str, hoyolab_id: int, hoyo_token: str, game_uid: int ):
         self.profile_list = open(self.profile, 'a')
@@ -31,28 +33,27 @@ class PlayerUser:
         self.profile_list.write(f"\t\tuid: {game_uid}\n")
         self.profile_list.close()
 
-    def find_user(self, find_username: str, show_info = False):
+    def find_user(self, find_username: str, show_info = True):
         print("Note: The username is case-sensitive.")
         self.profile_list = open(self.profile, 'r')
+        self.info = [["name", find_username]]
         load_profile = self.profile_list.readlines()
         for i, line in enumerate(load_profile):
             find_user = line.split("\t>")
             if len(find_user) == 2 and find_user[1].strip() == find_username:
-                print(find_user[1].strip())
-                # if show_info == True:
-                #     for (line_ind, info_line), r in zip(enumerate(load_profile), range(1,4)):
-                #         if line_ind == i + r:
-                #             print(r)
-
+                if show_info == True:
+                    [self.info.append(y.strip().split(": ")) for x,y in enumerate(load_profile) if x == i + 1 or  x == i + 2 or  x == i + 3]
         self.profile_list.close()
-
+        if len(self.info) != 4:
+            return f"No user with name {find_username}"
+        else:
+            return dict(self.info)
 
 if __name__ == "__main__":
     Genshin = PlayerUser()
-    Genshin.find_user("Cheonsa",show_info=True)
+    uinfo = Genshin.find_user("aluber",show_info=True)
+    print(uinfo)
     # Genshin.show_users()
-
-
 
 
 # gs.set_cookie(ltuid=169469751, ltoken="iIaZf8sNY5cIjNaSaLFbNjCdxikE6AZFVwADFVaw") # search all browsers
