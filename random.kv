@@ -243,16 +243,42 @@ ScrManager:
 
 <Menu_Userprofile>:
     name: "menu_userprofile"
-    BoxLayout:
-        orientation: "vertical"
+    GridLayout:
+        cols: 1
+        rows: 6
+        padding: 30
+        row_force_default: True
+        rows_minimum: {0: self.parent.height*0.10, 1: self.parent.height*0.03, 2: self.parent.height*0.20, 3: self.parent.height*0.05, 4: self.parent.height*0.05,5: 25}
         Label:
-            text: f'id = {root.uid}'
+            text: root.id
+            font_name: "fonts/GenshinFont.ttf"
+            font_size: 45
+            valign: "bottom"
+            Image:
+                source: "images/banners/hutao_profilebanner.jpg"
+                width: root.width
+                height: root.height
+                center_x: self.width and self.parent.center_x
+                center_y: self.height and self.parent.center_y
+                opacity: 0.2
         Label:
-            text: f'ign = {root.acct_id}'
+            text: root.uid
+            font_name: "fonts/GenshinFont.ttf"
+            font_size: 12
+
         Label:
-            text: f'hoyolab_id = {root.ltuid}'
+            text: "Hoyolab Network Information"
+            font_name: "fonts/GenshinFont.ttf"
+            font_size: 18
+
         Label:
-            text: f'hoyotoken_access = {root.ltoken}'
+            text: root.ltuid
+            font_name: "fonts/GenshinFont.ttf"
+            font_size: 12
+        Label:
+            text: f'Hoyolab Access Token: {root.ltoken}'
+            font_name: "fonts/GenshinFont.ttf"
+            font_size: 8
 
         Button:
             text: "Go back"

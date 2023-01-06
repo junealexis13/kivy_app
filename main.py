@@ -7,6 +7,8 @@ from kivy.lang import Builder
 from kivy.core.window import Window
 from kivy.animation import Animation
 
+import re
+
 from backend import backend
 
 Window.size = (412, 732)
@@ -46,12 +48,13 @@ class Menu_Resources(Screen):
     pass
 
 class Menu_Userprofile(Screen):
-    acct_id = StringProperty(playerUser.find_user('aluber')['name'])
-    ltuid = StringProperty(playerUser.find_user('aluber')['ltuid'])
-    ltoken = StringProperty(playerUser.find_user('aluber')['ltoken'])
-    uid = StringProperty(playerUser.find_user('aluber')['uid'])
-    
-
+    rd = open("backend/current_userprofile.txt","r")
+    content = rd.read()
+    id = re.findall(r"name:.*", content, re.MULTILINE)[0].replace("name: ","")
+    uid = re.findall(r"uid:.*", content, re.MULTILINE)[0].replace("uid: ","")
+    ltoken = re.findall(r"ltoken:.*", content, re.MULTILINE)[0].replace("ltoken: ","")
+    ltuid = re.findall(r"ltuid:.*", content, re.MULTILINE)[0].replace("ltuid: ","")
+    rd.close()
 
 class ScrManager(ScreenManager):
     pass

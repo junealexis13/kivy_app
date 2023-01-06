@@ -1,6 +1,7 @@
 import genshinstats as gs
 import glob
 import os
+import time
 import pandas as pd
 
 #token ID and login ID
@@ -17,11 +18,13 @@ class PlayerUser:
         
     def show_users(self):
         self.profile_list = open(self.profile, 'r')
-        users = []
+        users = {}
+        user_count = 0
         for line in self.profile_list:
-            find_user = line.split("\t>")
+            find_user = line.split("\t>"); 
             if len(find_user) == 2:
-                users.append(find_user[1].strip())
+                user_count += 1
+                users[user_count] = find_user[1].strip()
         self.profile_list.close()
         return users
 
@@ -49,10 +52,32 @@ class PlayerUser:
         else:
             return dict(self.info)
 
+    def choose_user(self):
+        print(" ---- + List of registered users + ----")
+        for i, users in self.show_users().items():
+            print(f"{i}: {users}")
+        
+        while True:
+            try:
+                user_choose = int(input("Select the USERNAME number from registered list: "))
+                print("Fetching user info..."); time.sleep(1.5)
+                user_tag = self.show_users()[user_choose]
+            except Exception:
+                print("USERNAME INVALID| Please pass a valid input.")
+            else:
+                break
+
+
+        fetch_info = self.find_user(user_tag)
+        read_currentuserprofile = open("backend/current_userprofile.txt",'w')
+        read_currentuserprofile.write(f"name: {user_tag}\nuid: {fetch_info['uid']}\nltuid: {fetch_info['ltuid']}\nltoken: {fetch_info['ltoken']}")
+        return print("Updated current user profile")
+
+
+
 if __name__ == "__main__":
     Genshin = PlayerUser()
-    uinfo = Genshin.find_user("aluber",show_info=True)
-    print(uinfo)
+    uinfo = Genshin.choose_user()
     # Genshin.show_users()
 
 
