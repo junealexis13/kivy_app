@@ -52,8 +52,8 @@ class Menu_Userprofile(Screen):
     content = rd.read()
     id = re.findall(r"name:.*", content, re.MULTILINE)[0].replace("name: ","")
     uid = re.findall(r"uid:.*", content, re.MULTILINE)[0].replace("uid: ","")
-    ltoken = re.findall(r"ltoken:.*", content, re.MULTILINE)[0].replace("ltoken: ","")
-    ltuid = re.findall(r"ltuid:.*", content, re.MULTILINE)[0].replace("ltuid: ","")
+    # ltoken = re.findall(r"ltoken:.*", content, re.MULTILINE)[0].replace("ltoken: ","")
+    # ltuid = re.findall(r"ltuid:.*", content, re.MULTILINE)[0].replace("ltuid: ","")
     rd.close()
 
 class ScrManager(ScreenManager):
