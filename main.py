@@ -1,6 +1,4 @@
 from kivy.app import App
-from kivy.uix.gridlayout import GridLayout
-from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty, StringProperty, ListProperty
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.lang import Builder
@@ -48,14 +46,11 @@ class Menu_Resources(Screen):
     pass
 
 class Menu_Userprofile(Screen):
-    rd = open("backend/current_userprofile.txt","r")
-    content = rd.read()
-    id = re.findall(r"name:.*", content, re.MULTILINE)[0].replace("name: ","")
-    uid = re.findall(r"uid:.*", content, re.MULTILINE)[0].replace("uid: ","")
-    # ltoken = re.findall(r"ltoken:.*", content, re.MULTILINE)[0].replace("ltoken: ","")
-    # ltuid = re.findall(r"ltuid:.*", content, re.MULTILINE)[0].replace("ltuid: ","")
-    rd.close()
-
+    fread = open("backend/current_userprofile.txt","r")
+    content = fread.read()
+    acct_ingame_info = playerUser.ingame_info()
+    acct_details = playerUser.find_user(re.findall(r"name:.*", content, re.MULTILINE)[0].replace("name: ",""))
+    fread.close()
 class ScrManager(ScreenManager):
     pass
 

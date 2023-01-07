@@ -1,5 +1,6 @@
 import genshinstats as gs
 import glob
+import re
 import os
 import time
 import pandas as pd
@@ -67,28 +68,60 @@ class PlayerUser:
             else:
                 break
 
+        try:
+            fetch_info = self.find_user(user_tag)
+            read_currentuserprofile = open("backend/current_userprofile.txt",'w')
+            read_currentuserprofile.write(f"name: {user_tag}\nuid: {fetch_info['uid']}\nltuid: {fetch_info['ltuid']}\nltoken: {fetch_info['ltoken']}")
+            print("Successfully updated current user profile")
+        except Exception:
+            print("An error occured.")
 
-        fetch_info = self.find_user(user_tag)
-        read_currentuserprofile = open("backend/current_userprofile.txt",'w')
-        read_currentuserprofile.write(f"name: {user_tag}\nuid: {fetch_info['uid']}\nltuid: {fetch_info['ltuid']}\nltoken: {fetch_info['ltoken']}")
-        return print("Updated current user profile")
+        return fetch_info
 
+    def ingame_resources(self):
+        #fetching userinfo from current user profile
+        rd = open("backend/current_userprofile.txt","r")
+        content = rd.read()
+        id = re.findall(r"name:.*", content, re.MULTILINE)[0].replace("name: ","")
+        uinfo = self.find_user(id)
+        #Fetch Geenshin impact infonotes
+        gs.set_cookie(ltuid=uinfo['ltuid'], ltoken=uinfo['ltoken'])
+        ingame_resources = gs.get_notes(uinfo["uid"])
 
+        content.close()
+        return ingame_resources
+
+    def ingame_resources(self):
+        #fetching userinfo from current user profile
+        rd = open("backend/current_userprofile.txt","r")
+        content = rd.read()
+        id = re.findall(r"name:.*", content, re.MULTILINE)[0].replace("name: ","")
+        uinfo = self.find_user(id)
+        #Fetch Geenshin impact infonotes
+        gs.set_cookie(ltuid=uinfo['ltuid'], ltoken=uinfo['ltoken'])
+        ingame_resources = gs.get_notes(uinfo["uid"])
+
+        rd.close()
+        return ingame_resources
+
+    def ingame_info(self):
+        #fetching userinfo from current user profile
+        rd = open("backend/current_userprofile.txt","r")
+        content = rd.read()
+        id = re.findall(r"name:.*", content, re.MULTILINE)[0].replace("name: ","")
+        uinfo = self.find_user(id)
+
+        #Fetch Geenshin impact infonotes
+        gs.set_cookie(ltuid=uinfo['ltuid'], ltoken=uinfo['ltoken'])
+        ingame_info = gs.get_all_user_data(uinfo["uid"])
+        rd.close()
+        return ingame_info
 
 if __name__ == "__main__":
     Genshin = PlayerUser()
-    uinfo = Genshin.choose_user()
-    # Genshin.show_users()
-
-
-# gs.set_cookie(ltuid=169469751, ltoken="iIaZf8sNY5cIjNaSaLFbNjCdxikE6AZFVwADFVaw") # search all browsers
-
-# uid = 841830081
-
-# data = gs.get_user_stats(uid)
-# # notes = gs.get_notes(uid)
-# notes = gs.get_notes(uid)
-# print(notes)
-# # print(data)
-# # for x in data:
-# #     print(x['name'], x['level'])
+    #update current user
+    Genshin.choose_user()
+    a = Genshin.ingame_info()
+    # print(a.keys())
+    # dict_keys(['name', 'rarity', 'element', 'level', 'friendship', 'constellation', 'icon', 'image', 'id', 'collab', 'weapon', 'artifacts', 'constellations', 'outfits'])
+    print(a['stats'])

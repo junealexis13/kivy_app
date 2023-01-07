@@ -146,14 +146,20 @@ ScrManager:
                 center_y: self.height and self.parent.center_y
         MenuButton:
             id: menu_button
-            text: "Button5"
+            text: ""
             on_press: root.menu_animate(self)
             Label:
                 id: menu_label
-                text: "About me"
+                text: "Wish Log"
                 font_size: 10
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y - self.parent.center_y*0.20
+            Image:
+                id: menu_image
+                source: "images/icons/fate.png"
+                size: (self.parent.width*0.75, self.parent.height*0.75)
+                center_x: self.width and self.parent.center_x
+                center_y: self.height and self.parent.center_y
         MenuButton:
             id: menu_button
             text: "Button6"
@@ -245,26 +251,148 @@ ScrManager:
     name: "menu_userprofile"
     GridLayout:
         cols: 1
-        rows: 6
-        padding: 30
-        row_force_default: True
-        rows_minimum: {0: self.parent.height*0.10, 1: self.parent.height*0.03, 2: self.parent.height*0.20, 3: self.parent.height*0.05, 4: self.parent.height*0.05,5: 25}
+        rows: 7
+        padding: 25
+        rows_minimum: {0: self.parent.height*0.08, 1: self.parent.height*0.04, 2: self.parent.height*0.70, 3: self.parent.height*0.02}
         Label:
-            text: root.id
+            text: root.acct_details["name"]
             font_name: "fonts/GenshinFont.ttf"
             font_size: 45
             valign: "bottom"
             Image:
-                source: "images/banners/hutao_profilebanner.jpg"
+                source: "images/banners/hutao_profilebanner.png"
                 width: root.width
                 height: root.height
                 center_x: self.width and self.parent.center_x
                 center_y: self.height and self.parent.center_y
-                opacity: 0.2
+                opacity: 0.75
         Label:
-            text: root.uid
+            text: root.acct_details["uid"]
             font_name: "fonts/GenshinFont.ttf"
             font_size: 12
+
+        GridLayout:
+            rows: 5
+            cols: 1
+            spacing: 8
+            InfoLabel:
+                Label:
+                    text: "Days Active"
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y + self.parent.height*0.35
+                    font_name: "fonts/Heebo-light.ttf"
+                    font_size: 18
+                Label:
+                    text: f"{root.acct_ingame_info['stats']['active_days']}"
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y + self.parent.height*0.15
+                    font_name: "fonts/GenshinFont.ttf"
+                    font_size: 35
+                Label:
+                    text: "Achievements Unlocked"
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y - self.parent.height*0.08
+                    font_name: "fonts/Heebo-light.ttf"
+                    font_size: 18
+                Label:
+                    text: f"{root.acct_ingame_info['stats']['achievements']}"
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y - self.parent.height*0.27
+                    font_name: "fonts/GenshinFont.ttf"
+                    font_size: 35
+            GridLayout:
+                rows: 2
+                cols: 2
+                spacing: 4
+                InfoLabel:
+                    Image:
+                        source: "images/icons/raiden.png"
+                        size: (self.parent.width*0.85, self.parent.height*0.85)
+                        center_x: self.width and self.parent.center_x
+                        center_y: self.height and self.parent.center_y
+                        opacity: 0.45
+                    Label:
+                        text: "Characters Owned"
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y + self.parent.height*0.2
+                        font_name: "fonts/Heebo-light.ttf"
+                        font_size: 18
+                    Label:
+                        text: f"{root.acct_ingame_info['stats']['characters']}"
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
+                        font_name: "fonts/GenshinFont.ttf"
+                        font_size: 35
+                InfoLabel:
+                    Image:
+                        source: "images/icons/spiral_abyss.png"
+                        size: (self.parent.width, self.parent.height)
+                        center_x: self.width and self.parent.center_x
+                        center_y: self.height and self.parent.center_y
+                        opacity: 0.45
+                    Label:
+                        text: "Spiral Abyss"
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y + self.parent.height*0.2
+                        font_name: "fonts/Heebo-light.ttf"
+                        font_size: 18
+                    Label:
+                        text: f"{root.acct_ingame_info['stats']['spiral_abyss']}"
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
+                        font_name: "fonts/GenshinFont.ttf"
+                        font_size: 35
+                    Label:
+                        text: "Floor - Chamber"
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y - self.parent.height*0.2
+                        font_name: "fonts/Heebo-light.ttf"
+                        font_size: 12
+
+            GridLayout:
+                rows: 1
+                cols: 2
+                spacing: 4
+                InfoLabel:
+                    Image:
+                        source: "images/icons/waypoint.png"
+                        size: (self.parent.width, self.parent.height)
+                        center_x: self.width and self.parent.center_x
+                        center_y: self.height and self.parent.center_y
+                        opacity: 0.45
+                    Label:
+                        text: "Unlocked Waypoints"
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y + self.parent.height*0.2
+                        font_name: "fonts/Heebo-light.ttf"
+                        font_size: 14
+                    Label:
+                        text: f"{root.acct_ingame_info['stats']['unlocked_waypoints']}"
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
+                        font_name: "fonts/GenshinFont.ttf"
+                        font_size: 35                   
+
+                InfoLabel:
+                    Image:
+                        source: "images/icons/domain.png"
+                        size: (self.parent.width, self.parent.height)
+                        center_x: self.width and self.parent.center_x
+                        center_y: self.height and self.parent.center_y
+                        opacity: 0.45
+                    Label:
+                        text: "Unlocked Domains"
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y + self.parent.height*0.2
+                        font_name: "fonts/Heebo-light.ttf"
+                        font_size: 18
+                    Label:
+                        text: f"{root.acct_ingame_info['stats']['unlocked_waypoints']}"
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
+                        font_name: "fonts/GenshinFont.ttf"
+                        font_size: 35                   
+
 
         Button:
             text: "Go back"
@@ -276,6 +404,7 @@ ScrManager:
             width: self.parent.width*0.5
             height: self.parent.height*0.5
 
+
 <TestLabel@Label>:
     font_size: 18
     font_name: "fonts/Heebo-Extrabold.ttf"
@@ -286,6 +415,14 @@ ScrManager:
             pos: self.pos
             size: self.size
 
+<InfoLabel@Label>:
+    canvas.before:
+        Color:
+            rgba: (229/255, 63/255, 113/255, 1)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [12]
 
 <MenuButton@Button>:
     font_size: 16
