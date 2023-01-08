@@ -120,7 +120,7 @@ class PlayerUser:
 if __name__ == "__main__":
     Genshin = PlayerUser()
     #update current user
-    Genshin.choose_user()
+    # Genshin.choose_user()
     a = Genshin.ingame_info()
     # print(a.keys())
     # dict_keys(['name', 'rarity', 'element', 'level', 'friendship', 'constellation', 'icon', 'image', 'id', 'collab', 'weapon', 'artifacts', 'constellations', 'outfits'])

@@ -27,7 +27,7 @@ class MainMenu(Screen):
 
     def menu_animate(self, widget, *args):
         menu_anim = Animation(
-            background_color = (248/255,159/255,91/255,0.25),
+            background_color = (248/255,159/25,91/255,0.25),
             duration = 0.25
         ) 
         menu_anim += Animation(background_color = (248/255,159/255,91/255,0), duration = 0.5)

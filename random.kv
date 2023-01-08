@@ -251,9 +251,10 @@ ScrManager:
     name: "menu_userprofile"
     GridLayout:
         cols: 1
-        rows: 7
+        rows: 8
         padding: 25
-        rows_minimum: {0: self.parent.height*0.08, 1: self.parent.height*0.04, 2: self.parent.height*0.70, 3: self.parent.height*0.02}
+        spacing: 10
+        rows_minimum: {0: self.parent.height*0.06, 1: self.parent.height*0.04, 2: self.parent.height*0.55, 3: self.parent.height*0.04, 4: self.parent.height*0.08, 5: self.parent.height*0.05}
         Label:
             text: root.acct_details["name"]
             font_name: "fonts/GenshinFont.ttf"
@@ -271,10 +272,9 @@ ScrManager:
             font_name: "fonts/GenshinFont.ttf"
             font_size: 12
 
-        GridLayout:
-            rows: 5
-            cols: 1
-            spacing: 8
+        BoxLayout:
+            orientation: "vertical"
+            spacing: 10
             InfoLabel:
                 Label:
                     text: "Days Active"
@@ -300,10 +300,9 @@ ScrManager:
                     center_y: self.parent.center_y - self.parent.height*0.27
                     font_name: "fonts/GenshinFont.ttf"
                     font_size: 35
-            GridLayout:
-                rows: 2
-                cols: 2
-                spacing: 4
+            BoxLayout:
+                orientation: "horizontal"
+                spacing: 10
                 InfoLabel:
                     Image:
                         source: "images/icons/raiden.png"
@@ -349,14 +348,13 @@ ScrManager:
                         font_name: "fonts/Heebo-light.ttf"
                         font_size: 12
 
-            GridLayout:
-                rows: 1
-                cols: 2
-                spacing: 4
+            BoxLayout:
+                orientation: "horizontal"
+                spacing: 10
                 InfoLabel:
                     Image:
                         source: "images/icons/waypoint.png"
-                        size: (self.parent.width, self.parent.height)
+                        size: (self.parent.width*0.9, self.parent.height*0.9)
                         center_x: self.width and self.parent.center_x
                         center_y: self.height and self.parent.center_y
                         opacity: 0.45
@@ -376,7 +374,7 @@ ScrManager:
                 InfoLabel:
                     Image:
                         source: "images/icons/domain.png"
-                        size: (self.parent.width, self.parent.height)
+                        size: (self.parent.width*0.9, self.parent.height*0.9)
                         center_x: self.width and self.parent.center_x
                         center_y: self.height and self.parent.center_y
                         opacity: 0.45
@@ -393,6 +391,13 @@ ScrManager:
                         font_name: "fonts/GenshinFont.ttf"
                         font_size: 35                   
 
+        InfoLabel:
+            Label:
+                text: "Chests"
+
+        InfoLabel:
+            Label:
+                text: "Chests"
 
         Button:
             text: "Go back"
@@ -420,9 +425,9 @@ ScrManager:
         Color:
             rgba: (229/255, 63/255, 113/255, 1)
         RoundedRectangle:
-            size: self.size
-            pos: self.pos
-            radius: [12]
+            size: (self.width, self.height)
+            pos: (self.x, self.y)
+            radius: [18]
 
 <MenuButton@Button>:
     font_size: 16
