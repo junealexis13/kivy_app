@@ -254,7 +254,7 @@ ScrManager:
         rows: 8
         padding: 25
         spacing: 10
-        rows_minimum: {0: self.parent.height*0.06, 1: self.parent.height*0.04, 2: self.parent.height*0.55, 3: self.parent.height*0.04, 4: self.parent.height*0.08, 5: self.parent.height*0.05}
+        rows_minimum: {0: self.parent.height*0.06, 1: self.parent.height*0.04, 2: self.parent.height*0.60, 3: self.parent.height*0.02, 4: self.parent.height*0.08, 5: self.parent.height*0.06}
         Label:
             text: root.acct_details["name"]
             font_name: "fonts/GenshinFont.ttf"
@@ -391,13 +391,62 @@ ScrManager:
                         font_name: "fonts/GenshinFont.ttf"
                         font_size: 35                   
 
-        InfoLabel:
-            Label:
-                text: "Chests"
+        Label:
+            text: "Unlocked Chests"
+            font_name: "fonts/Heebo-light.ttf"
+            font_size: 18
 
-        InfoLabel:
-            Label:
-                text: "Chests"
+        BoxLayout:
+            orientation: "horizontal"
+            spacing: 5
+            InfoLabel:
+                Label:
+                    text: "Common"
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y + self.parent.center_y*0.16
+                    font_size: 12
+                Label:
+                    text: f"{root.acct_ingame_info['stats']['common_chests']}"
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y*0.97
+                    font_name: "fonts/GenshinFont.ttf"
+                    font_size: 24        
+            InfoLabel:
+                Label:
+                    text: "Exquisite"
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y + self.parent.center_y*0.16
+                    font_size: 12
+                Label:
+                    text: f"{root.acct_ingame_info['stats']['exquisite_chests']}"
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y*0.97
+                    font_name: "fonts/GenshinFont.ttf"
+                    font_size: 24        
+            InfoLabel:
+                Label:
+                    text: "Precious"
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y + self.parent.center_y*0.16
+                    font_size: 12
+                Label:
+                    text: f"{root.acct_ingame_info['stats']['precious_chests']}"
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y*0.97
+                    font_name: "fonts/GenshinFont.ttf"
+                    font_size: 24        
+            InfoLabel:
+                Label:
+                    text: "Luxurious"
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y + self.parent.center_y*0.16
+                    font_size: 12
+                Label:
+                    text: f"{root.acct_ingame_info['stats']['luxurious_chests']}"
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y*0.97
+                    font_name: "fonts/GenshinFont.ttf"
+                    font_size: 24        
 
         Button:
             text: "Go back"
@@ -427,7 +476,7 @@ ScrManager:
         RoundedRectangle:
             size: (self.width, self.height)
             pos: (self.x, self.y)
-            radius: [18]
+            radius: [12]
 
 <MenuButton@Button>:
     font_size: 16
