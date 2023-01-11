@@ -1,9 +1,14 @@
->> user
-	> aluber
-                ltuid: 169469751
-                ltoken: iIaZf8sNY5cIjNaSaLFbNjCdxikE6AZFVwADFVaw
-                uid: 841830081
-	> Cheonsa
-                ltuid: 69270783
-                ltoken: RFTYzxIugEIsan7EUeCguSSHld8cdvI4XPacp81i
-                uid: 811219969
+ltuid: 69270783
+ltoken: RFTYzxIugEIsan7EUeCguSSHld8cdvI4XPacp81i
+	>> ingame_name: Angel
+		level: 12
+		uid: 19978534
+	>> ingame_name: Angel Joie
+		level: 1
+		uid: 201501289
+	>> ingame_name: Enjel
+		level: 60
+		uid: 811219969
+	>> ingame_name: Soule
+		level: 2
+		uid: 902867162

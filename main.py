@@ -6,6 +6,7 @@ from kivy.core.window import Window
 from kivy.animation import Animation
 
 import re
+import sys
 
 from backend import backend
 
@@ -34,8 +35,21 @@ class MainMenu(Screen):
         menu_anim.start(widget)
 
 
-playerUser = backend.PlayerUser()
- 
+
+with open(r'backend/current_userprofile.txt') as rd:
+    read_file = rd.readlines()
+    info = {}
+    for line in read_file:
+        if "ltuid" in line or "ltoken" in line:
+            try:
+                ainfo = line.split(": ")
+                info[ainfo[0]] = ainfo[1]
+            except Exception as e:
+                print(f"An error occured!")
+
+playerUser = backend.PlayerUser(info[0],info[1])
+
+
 class Menu_Stats(Screen):
     pass
 
