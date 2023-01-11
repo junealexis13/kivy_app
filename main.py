@@ -36,18 +36,14 @@ class MainMenu(Screen):
 
 
 
-with open(r'backend/current_userprofile.txt') as rd:
+with open(r'backend/current_userprofile.txt','r') as rd:
     read_file = rd.readlines()
     info = {}
     for line in read_file:
         if "ltuid" in line or "ltoken" in line:
-            try:
-                ainfo = line.split(": ")
-                info[ainfo[0]] = ainfo[1]
-            except Exception as e:
-                print(f"An error occured!")
-
-playerUser = backend.PlayerUser(info[0],info[1])
+            ainfo = line.split(": ")
+            info[ainfo[0]] = ainfo[1]
+    playerUser = backend.PlayerUser(info['ltuid'],info['ltoken'])
 
 
 class Menu_Stats(Screen):
