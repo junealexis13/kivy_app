@@ -58,7 +58,10 @@ class Menu_Resources(Screen):
 class Menu_Userprofile(Screen):
     fread = open("backend/current_userprofile.txt","r")
     content = fread.read()
+    #update ingame_info
     acct_ingame_info = playerUser.ingame_info()
+
+    #get_user add algo
     acct_details = playerUser.find_user(re.findall(r"name:.*", content, re.MULTILINE)[0].replace("name: ",""))
     fread.close()
 class ScrManager(ScreenManager):
