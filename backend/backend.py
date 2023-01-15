@@ -1,5 +1,6 @@
 import genshinstats as gs
 import glob
+import sys
 import re
 import os
 import time
@@ -26,6 +27,38 @@ class PlayerUser:
                 users[user_count] = find_user[1].strip()
         self.profile_list.close()
         return users
+
+    def find_user(self, username):
+        self.profile_list = open(self.profile, 'r')
+        content = self.profile_list.readlines()
+        uinfo = {}
+        profile_id = None
+
+        for line_number, lines in enumerate(content):
+            if line_number < 2:
+                users = lines.strip().split(": ")
+                uinfo[users[0]] = users[1]
+            elif line_number >= len(content) - 1:
+                sys.exit(f"No user found for: '{username}'")
+            else:
+                user = lines.strip().split(">> ingame_name: ")
+                if len(user) > 1 and username == user[1]:
+                    uinfo['name'] = user[1]
+                    profile_id = line_number
+                elif len(user) > 1 and username != user[1]:
+                    pass
+                #get the matched user metadata
+                if profile_id != None:
+                    if line_number > profile_id and line_number <= profile_id + 2:
+                        usermetadata = lines.strip().split(": ")
+                        uinfo[usermetadata[0]] = usermetadata[1]
+                    elif line_number > profile_id + 3:
+                        break
+            
+
+        self.profile_list.close()
+        return uinfo
+
 
     def add_user(self):
         #this doesnt work on accounts in China server
@@ -95,13 +128,11 @@ class PlayerUser:
     def ingame_info(self):
         #fetching userinfo from current user profile
         rd = open("backend/current_userprofile.txt","r")
-        content = rd.read()
-        id = re.findall(r"name:.*", content, re.MULTILINE)[0].replace("name: ","")
-        uinfo = self.find_user(id)
-
-        #Fetch Geenshin impact infonotes
-        gs.set_cookie(ltuid=uinfo['ltuid'], ltoken=uinfo['ltoken'])
-        ingame_info = gs.get_all_user_data(uinfo["uid"])
+        content = rd.readlines()
+        
+        #Fetch Genshin impact infonotes
+        get_current_uid = content[1].strip().split(": ")[1]
+        ingame_info = gs.get_all_user_data(get_current_uid)
         rd.close()
         return ingame_info
 
@@ -112,4 +143,14 @@ if __name__ == "__main__":
     # a = Genshin.ingame_info()
     # print(a.keys())
     # dict_keys(['name', 'rarity', 'element', 'level', 'friendship', 'constellation', 'icon', 'image', 'id', 'collab', 'weapon', 'artifacts', 'constellations', 'outfits'])
-    print(gs.get_game_accounts())
+    # print(Genshin.ingame_info()['stats'])
+
+    fread = open("backend/current_userprofile.txt","r")
+    content = fread.read()
+    #update ingame_info
+
+    #get_user add algo
+    acct_details = Genshin.find_user(re.findall(r"name:.*", content, re.MULTILINE)[0].replace("name: ",""))
+    fread.close()
+
+    print(acct_details)

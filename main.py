@@ -42,7 +42,7 @@ with open(r'backend/current_userprofile.txt','r') as rd:
     for line in read_file:
         if "ltuid" in line or "ltoken" in line:
             ainfo = line.split(": ")
-            info[ainfo[0]] = ainfo[1]
+            info[ainfo[0]] = ainfo[1].strip()
     playerUser = backend.PlayerUser(info['ltuid'],info['ltoken'])
 
 
