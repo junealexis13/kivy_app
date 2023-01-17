@@ -145,12 +145,4 @@ if __name__ == "__main__":
     # dict_keys(['name', 'rarity', 'element', 'level', 'friendship', 'constellation', 'icon', 'image', 'id', 'collab', 'weapon', 'artifacts', 'constellations', 'outfits'])
     # print(Genshin.ingame_info()['stats'])
 
-    fread = open("backend/current_userprofile.txt","r")
-    content = fread.read()
-    #update ingame_info
-
-    #get_user add algo
-    acct_details = Genshin.find_user(re.findall(r"name:.*", content, re.MULTILINE)[0].replace("name: ",""))
-    fread.close()
-
-    print(acct_details)
+    print(list(Genshin.show_users().values()))

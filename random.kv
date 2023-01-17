@@ -1,3 +1,6 @@
+#:import Button kivy.uix.button.Button
+#:import Label kivy.uix.label.Label
+
 ScrManager:
     WelcomeScreen
     MainMenu
@@ -5,6 +8,7 @@ ScrManager:
     Menu_Chars
     Menu_Resources
     Menu_Userprofile
+
 
 <WelcomeScreen>:
     name: "splashscreen"
@@ -223,16 +227,20 @@ ScrManager:
 
 <Menu_Chars>:
     name: "menu_chars"
-    BoxLayout:
-        orientation: "vertical"
-        Label:
-            text: "Chars should appear here."
-
+    GridLayout:
+        rows: 3
+        BoxLayout:
+            orientation: "vertical"
+            
+            on_parent:
+                if not self.children: [self.add_widget(Button(text=str(i))) for i in range(10)]
         Button:
             text: "Go back"
             on_release: 
                 app.root.current = "mainmenu"
                 root.manager.transition.direction = "up"
+
+
 
 <Menu_Resources>:
     name: "menu_resources"
@@ -247,6 +255,9 @@ ScrManager:
                 app.root.current = "mainmenu"
                 root.manager.transition.direction = "up"
 
+####################################################################################################################################################
+########################################################################## USERPROFILE #############################################################
+####################################################################################################################################################
 <Menu_Userprofile>:
     name: "menu_userprofile"
     GridLayout:
@@ -503,4 +514,3 @@ ScrManager:
             size: self.size
             pos: self.pos
             radius: [18]
-                

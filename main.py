@@ -1,4 +1,5 @@
 from kivy.app import App
+from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty, StringProperty, ListProperty
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.lang import Builder
@@ -44,6 +45,7 @@ with open(r'backend/current_userprofile.txt','r') as rd:
             ainfo = line.split(": ")
             info[ainfo[0]] = ainfo[1].strip()
     playerUser = backend.PlayerUser(info['ltuid'],info['ltoken'])
+    userList = list(playerUser.show_users().values())
 
 
 class Menu_Stats(Screen):
@@ -64,6 +66,8 @@ class Menu_Userprofile(Screen):
     #get_user add algo
     acct_details = playerUser.find_user(re.findall(r"name:.*", content, re.MULTILINE)[0].replace("name: ",""))
     fread.close()
+
+
 class ScrManager(ScreenManager):
     pass
 
@@ -74,4 +78,5 @@ class RandomApp(App):
         return kv
 
 if __name__ == "__main__":
+
     RandomApp().run()
