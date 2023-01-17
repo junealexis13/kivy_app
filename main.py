@@ -1,3 +1,4 @@
+import kivy
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty, StringProperty, ListProperty
@@ -11,6 +12,9 @@ import sys
 
 from backend import backend
 
+
+
+kivy.require('2.1.0')
 Window.size = (412, 732)
 Window.clearcolor = (63/255, 22/255, 81/255, 1.0)
 
