@@ -4,7 +4,7 @@ import sys
 import re
 import os
 import time
-import pandas as pd
+import json
 
 #token ID and login ID
 
@@ -144,5 +144,9 @@ if __name__ == "__main__":
     # print(a.keys())
     # dict_keys(['name', 'rarity', 'element', 'level', 'friendship', 'constellation', 'icon', 'image', 'id', 'collab', 'weapon', 'artifacts', 'constellations', 'outfits'])
     # print(Genshin.ingame_info()['stats'])
+    # json_file = open('others/data.json','r')
+    # a = json.load(json_file)
+    # for chars in a['characters']:
+    #     print(chars['name'],'\t\t\t' ,chars['level'])
 
-    print(list(Genshin.show_users().values()))
+    print(Genshin.ingame_info()['characters'])
