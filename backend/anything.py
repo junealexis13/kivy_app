@@ -1,22 +1,29 @@
-import re
-
-
-
-
+#main.py
 from kivy.app import App
-from kivy.lang import Builder
+from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.recycleview import RecycleView
+from kivy.uix.scrollview import ScrollView
+from kivy.uix.gridlayout import GridLayout
+from kivy.properties import ListProperty
 
-kv = '''
-#:import Button kivy.uix.button.Button
-BoxLayout:
-    on_parent:
-        if not self.children: [self.add_widget(Button(text=str(i))) for i in range(10)]
-'''
+class MyScreen(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.my_list = [1, 2, 3, 4, 5]
+        scroll_view = ScrollView(size_hint=(1, None), size=(self.width, self.height))
+        recycle_view = RecycleView(size_hint=(1, None), size=(self.width, self.height))
+        recycle_view.data = self.my_list
+        recycle_view.viewclass = 'Label'
+        recycle_view.layout = GridLayout(cols=1, size_hint_y=None)
+        recycle_view.layout.bind(minimum_height=recycle_view.layout.setter('height'))
+        scroll_view.add_widget(recycle_view)
+        self.add_widget(scroll_view)
 
-class LoopApp(App):
+class MainApp(App):
     def build(self):
-        return Builder.load_string(kv)
+        sm = ScreenManager()
+        sm.add_widget(MyScreen(name='my_screen'))
+        return sm
 
-if __name__ == "__main__":
-
-    LoopApp().run()
+if __name__ == '__main__':
+    MainApp().run()

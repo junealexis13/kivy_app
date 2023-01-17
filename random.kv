@@ -225,15 +225,24 @@ ScrManager:
                 app.root.current = "mainmenu"
                 root.manager.transition.direction = "up"
 
+
 <Menu_Chars>:
     name: "menu_chars"
     GridLayout:
         rows: 3
-        BoxLayout:
-            orientation: "vertical"
-            
-            on_parent:
-                if not self.children: [self.add_widget(Button(text=str(i))) for i in range(10)]
+        padding: 30
+        spacing: 15
+        rows_minimum: {0: self.parent.height*0.9, 1: self.parent.height*0.1}
+        ScrollView:
+            GridLayout:
+                cols: 2
+                padding: 20
+                spacing: 30
+                size_hint: 1, None
+                height: self.minimum_height*4
+                row_default_height: 40
+                on_parent:
+                    if not self.children: [self.add_widget(Button(text=char['name'], size_hint = (0.2,0.2))) for char in root.chars] 
         Button:
             text: "Go back"
             on_release: 
@@ -245,9 +254,8 @@ ScrManager:
 <Menu_Resources>:
     name: "menu_resources"
     BoxLayout:
-        orientation: "vertical"
-        Label:
-            text: "Resources should appear here."
+        orientation: "vertical" 
+        
 
         Button:
             text: "Go back"
