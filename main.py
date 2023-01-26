@@ -62,9 +62,9 @@ class Menu_Stats(Screen):
 class Menu_Chars(Screen):
     chars = charList
     def create_button(self, name):
-        image_dir = f"images/chars/icon/icon_{name}.png"
+        image_dir = f"images/chars/icons/icon_{name}.png"
         CustomButton = Button(background_normal = image_dir)
-        name = Label(text = name, font_name = 'fonts/GenshinFont.ttf', font_size = 15, pos_hint = {'center_x': 0.5, 'center_y' : -0.03})
+        name = Label(text = name, font_name = 'fonts/GenshinFont.ttf', font_size = 15, center_x = 0.5)
         CustomButton.add_widget(name)
         return CustomButton
 
