@@ -6,6 +6,8 @@ import os
 import time
 import json
 
+import requests
+
 #token ID and login ID
 
 class PlayerUser:
@@ -149,4 +151,16 @@ if __name__ == "__main__":
     # for chars in a['characters']:
     #     print(chars['name'],'\t\t\t' ,chars['level'])
 
-    print(Genshin.ingame_info()['characters'])
+    for characters in Genshin.ingame_info()['characters']:
+        if not os.path.exists(f"chars/image/img_{characters['name']}.png"):
+            img_data = requests.get(characters['image'])
+            img = open(f"images/chars/image/img_{characters['name']}.png", 'wb')
+            img.write(img_data.content)
+            img.close()
+
+
+        if not os.path.exists(f"chars/image/icon_{characters['name']}.png"):       
+            icon_data = requests.get(characters['icon'])
+            icon = open(f"images/chars/icons/icon_{characters['name']}.png", 'wb')
+            icon.write(icon_data.content)
+            icon.close()
