@@ -5,9 +5,7 @@ from kivy.uix.button import Button
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.image import Image
-from kivy.properties import ObjectProperty, StringProperty, ListProperty
 from kivy.uix.screenmanager import Screen, ScreenManager
-from kivy.uix.recycleview import RecycleView
 from kivy.lang import Builder
 from kivy.core.window import Window
 from kivy.animation import Animation
@@ -63,6 +61,12 @@ class Menu_Stats(Screen):
 
 class Menu_Chars(Screen):
     chars = charList
+    def create_button(self, name):
+        image_dir = f"images/chars/icon/icon_{name}.png"
+        CustomButton = Button(background_normal = image_dir)
+        name = Label(text = name, font_name = 'fonts/GenshinFont.ttf', font_size = 15, pos_hint = {'center_x': 0.5, 'center_y' : -0.03})
+        CustomButton.add_widget(name)
+        return CustomButton
 
 class Menu_Resources(Screen):
     pass

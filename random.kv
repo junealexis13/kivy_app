@@ -245,9 +245,8 @@ ScrManager:
                 size_hint: 1, None
                 height: self.minimum_height*3
                 row_default_height: root.height*0.018
-
                 on_parent:
-                    for char in root.chars: self.add_widget(Button(background_normal=f'images/chars/icons/icon_{char["name"]}.png')); self.add_widget(Label(text=f"{char['name']}", pos_hint = {"center_x": 0.5, "center_y": 0.5}))
+                    for char in root.chars: self.add_widget(root.create_button(f"{char['name']}"))
                 # on_parent:
                 #     if not self.children: [self.add_widget(Button(text=f'{char["name"]}', background_normal=f'images/chars/icons/icon_{char["name"]}.png')) for char in root.chars]
                 #on_parent:
@@ -533,3 +532,16 @@ ScrManager:
             size: self.size
             pos: self.pos
             radius: [18]
+
+
+<CharWindow@Button>:
+    id: 'char_window'
+    canvas.before:
+        Color:
+            rgba: (229/255, 63/255, 113/255, 0)
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [18]
+    Label:
+        text: ""
