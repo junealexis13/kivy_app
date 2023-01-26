@@ -21,6 +21,11 @@ kivy.require('2.1.0')
 Window.size = (412, 732)
 Window.clearcolor = (63/255, 22/255, 81/255, 1.0)
 
+
+class ScrManager(ScreenManager):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
 class WelcomeScreen(Screen):
     def on_press_animation(self, *args):
         self.ids.splash_image.opacity = 0.5
@@ -41,8 +46,6 @@ class MainMenu(Screen):
         menu_anim += Animation(background_color = (248/255,159/255,91/255,0), duration = 0.5)
         menu_anim.start(widget)
 
-
-
 with open(r'backend/current_userprofile.txt','r') as rd:
     read_file = rd.readlines()
     info = {}
@@ -61,7 +64,6 @@ class Menu_Stats(Screen):
 class Menu_Chars(Screen):
     chars = charList
 
-
 class Menu_Resources(Screen):
     pass
 
@@ -75,17 +77,12 @@ class Menu_Userprofile(Screen):
     acct_details = playerUser.find_user(re.findall(r"name:.*", content, re.MULTILINE)[0].replace("name: ",""))
     fread.close()
 
-
-class ScrManager(ScreenManager):
-    pass
-
-
-
 kv = Builder.load_file("random.kv")
 
 class RandomApp(App):
     def build(self):
         return kv
+
 
 if __name__ == "__main__":
 
