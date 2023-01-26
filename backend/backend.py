@@ -138,6 +138,30 @@ class PlayerUser:
         rd.close()
         return ingame_info
 
+    def update_resources(self):
+        #Download image resources
+        for characters in Genshin.ingame_info()['characters']:
+            if not os.path.exists(f"chars/image/img_{characters['name']}.png"):
+                img_data = requests.get(characters['image'])
+                img = open(f"images/chars/image/img_{characters['name']}.png", 'wb')
+                img.write(img_data.content)
+                img.close()
+
+            if not os.path.exists(f"chars/image/icon_{characters['name']}.png"):       
+                icon_data = requests.get(characters['icon'])
+                icon = open(f"images/chars/icons/icon_{characters['name']}.png", 'wb')
+                icon.write(icon_data.content)
+                icon.close()
+        print("Successully updated image resources.")
+
+        #Download files character data
+        user_data = self.ingame_info()
+        udata = open("others/data.json","w")
+        json.dump(user_data,udata, indent=4)
+        udata.close()
+        print("Successully updated user data resources.")
+        print('DONE!')
+
 if __name__ == "__main__":
     Genshin = PlayerUser(69270783,"RFTYzxIugEIsan7EUeCguSSHld8cdvI4XPacp81i")
     #update current user
@@ -146,21 +170,11 @@ if __name__ == "__main__":
     # print(a.keys())
     # dict_keys(['name', 'rarity', 'element', 'level', 'friendship', 'constellation', 'icon', 'image', 'id', 'collab', 'weapon', 'artifacts', 'constellations', 'outfits'])
     # print(Genshin.ingame_info()['stats'])
-    # json_file = open('others/data.json','r')
-    # a = json.load(json_file)
     # for chars in a['characters']:
     #     print(chars['name'],'\t\t\t' ,chars['level'])
 
-    for characters in Genshin.ingame_info()['characters']:
-        if not os.path.exists(f"chars/image/img_{characters['name']}.png"):
-            img_data = requests.get(characters['image'])
-            img = open(f"images/chars/image/img_{characters['name']}.png", 'wb')
-            img.write(img_data.content)
-            img.close()
+    # for characters in Genshin.ingame_info()['characters']:
+    #     #dict_keys(['name', 'rarity', 'element', 'level', 'friendship', 'constellation', 'icon', 'image', 'id', 'collab', 'weapon', 'artifacts', 'constellations', 'outfits'])
+    #     print(characters['weapon'])
 
-
-        if not os.path.exists(f"chars/image/icon_{characters['name']}.png"):       
-            icon_data = requests.get(characters['icon'])
-            icon = open(f"images/chars/icons/icon_{characters['name']}.png", 'wb')
-            icon.write(icon_data.content)
-            icon.close()
+    Genshin.update_resources()

@@ -230,19 +230,28 @@ ScrManager:
     name: "menu_chars"
     GridLayout:
         rows: 3
-        padding: 30
-        spacing: 15
-        rows_minimum: {0: self.parent.height*0.9, 1: self.parent.height*0.1}
+        padding: 10
+        spacing: 10
+        rows_minimum: {0: self.parent.height*0.05, 1: self.parent.height*0.8, 2: self.parent.height*0.05}
+        Label:
+            text: "Characters"
+            font_name: "fonts/GenshinFont.ttf"
+            font_size: 20
         ScrollView:
             GridLayout:
                 cols: 2
-                padding: 20
-                spacing: 30
+                padding: 30
+                spacing: 50
                 size_hint: 1, None
-                height: self.minimum_height*4
-                row_default_height: 40
+                height: self.minimum_height*3
+                row_default_height: root.height*0.018
+
                 on_parent:
-                    if not self.children: [self.add_widget(Button(text=char['name'], size_hint = (0.2,0.2))) for char in root.chars] 
+                    for char in root.chars: self.add_widget(Button(background_normal=f'images/chars/icons/icon_{char["name"]}.png')); self.add_widget(Label(text=f"{char['name']}", pos_hint = {"center_x": 0.5, "center_y": 0.5}))
+                # on_parent:
+                #     if not self.children: [self.add_widget(Button(text=f'{char["name"]}', background_normal=f'images/chars/icons/icon_{char["name"]}.png')) for char in root.chars]
+                #on_parent:
+                    #if not self.children: [self.add_widget(Label(text=f"char['name']", pos_hint = {"center_x": 0.5, "center_y": -0.03})) for char in root.chars]
         Button:
             text: "Go back"
             on_release: 
